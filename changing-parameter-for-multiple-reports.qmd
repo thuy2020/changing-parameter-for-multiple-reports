@@ -1,0 +1,63 @@
+---
+title: "changing-parameter-for-multiple-reports"
+format: html
+editor: visual
+params:
+  species: setosa
+---
+
+```{r}
+#| warning: false
+library(dplyr)
+library(ggplot2)
+```
+
+Iris data set has 3 species:
+
+```{r}
+unique(iris$Species)
+
+```
+
+To create a separate report for each species, define the `params` in the YAML section at the top of the qmd file. Let's try with setosa.
+
+
+```{r eval=FALSE} 
+---
+title: "changing-parameter-for-multiple-reports"
+format: html
+editor: visual
+params:
+  species: setosa
+---
+```
+
+Create a function whose input is a species' name and output is a plot for that species.
+
+```{r}
+report <- function(species){
+  
+  iris %>% filter(Species == species) %>% 
+  ggplot(aes(Petal.Length, Petal.Width)) +
+  geom_point() +
+  theme_minimal() +
+  
+  labs(title = paste0("Report on ", species))
+}
+```
+
+Call the function and referring to the parameter. 
+
+```{r}
+report(params$species)
+```
+
+Cross-reference to the species that is specify in the parameter in YAML section.
+
+
+```{r eval=FALSE}
+The plot displays the relationship between petal length 
+and petal with in `r params$species` species.
+```
+
+The plot displays the relationship between petal length and petal with in `r params$species` species.
