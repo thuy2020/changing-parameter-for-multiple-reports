@@ -56,8 +56,21 @@ Cross-reference to the species that is specify in the parameter in YAML section.
 
 
 ```{r eval=FALSE}
-The plot displays the relationship between petal length 
-and petal with in `r params$species` species.
+The plot displays the relationship between petal length and petal 
+with in `r params$species` species.
 ```
 
 The plot displays the relationship between petal length and petal with in `r params$species` species.
+
+
+To produce a report for another species, say `virginica`, all we need to do is to change `params` in the YAML: 
+
+```{r eval=FALSE} 
+---
+title: "changing-parameter-for-multiple-reports"
+format: html
+editor: visual
+params:
+  species: virginica
+---
+```
